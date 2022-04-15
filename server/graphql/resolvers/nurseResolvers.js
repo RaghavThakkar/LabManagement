@@ -32,6 +32,18 @@ export default {
 
         return userInfo;
     },
+    userByType: async ({type}, req) => {
+        // if (!req.isAuth) {
+        //
+        //     throw new Error("Unauthorized");
+        // }
+        const userInfo = User.find({usertype:type}).exec()
+        if (!userInfo) {
+            throw new Error('Error')
+        }
+
+        return userInfo;
+    },
     registration: async (args) => {
         const newStudent = new User(args.userInput);
         const student = await newStudent.save();

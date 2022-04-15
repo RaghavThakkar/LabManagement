@@ -88,6 +88,7 @@ export default buildSchema(
         userById(id:String):User
         vitalInfoList:[VitalSigns]
         motivationalList:[Motivational]
+        userByType(type:String):[User]
     }
     
     schema{
