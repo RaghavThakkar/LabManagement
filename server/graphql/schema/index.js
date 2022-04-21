@@ -63,7 +63,8 @@ export default buildSchema(
      weight:String,
      bloodPressure:String,
      temperature:String,
-     respiratoryrate:String
+     respiratoryrate:String,
+     date:String
    }
     
     type SuccessReturn{
@@ -78,7 +79,7 @@ export default buildSchema(
         
         createEmergencyAlert(input:EmergencyAlertInputType):SuccessReturn
         createDailyInformation(input:userInfoInput):SuccessReturn
-        createDailyMotivationalFeed(title:String,description:String,videoURL:String):SuccessReturn
+        createDailyMotivationalFeed(title:String,description:String,videoURL:String,date:String):SuccessReturn
         enterVitalInfo(input:VitalSignsInput):SuccessReturn
     }
     type RootQuery{
@@ -89,6 +90,8 @@ export default buildSchema(
         vitalInfoList:[VitalSigns]
         motivationalList:[Motivational]
         userByType(type:String):[User]
+        vitalInfoByID(id:String):VitalSigns
+        vitalInfoByUserEmail(email:String):VitalSigns
     }
     
     schema{

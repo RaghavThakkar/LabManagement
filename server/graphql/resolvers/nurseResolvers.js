@@ -6,6 +6,7 @@ import EmergencyAlert from "../../models/emergencyalert.js";
 import UserInfo from "../../models/userinfo.js";
 import VitalSigns from "../../models/vitalsigns.js";
 import Motivation from "../../models/motivation.js";
+import mongoose from "mongoose";
 
 export default {
     userById: async ({id}, req) => {
@@ -174,15 +175,30 @@ export default {
 
         return data;
     },
-    motivationalList: async ({}, req) => {
-        // if (!req.isAuth) {
-        //     throw new Error("Unauthorized");
-        // }
-        const data = Motivation.find().exec()
-        if (!data) {
-            throw new Error('Error')
-        }
+    vitalInfoByID: async ({id}, req) => {
+        if (!req.isAuth) {
 
+            throw new Error("Unauthorized");
+        }
+        const data = VitalSigns.findById(id).exec()
+
+
+        return data;
+    },
+    vitalInfoByUserEmail: async ({email}, req) => {
+        if (!req.isAuth) {
+
+            throw new Error("Unauthorized");
+        }
+        const data = VitalSigns.findOne({userEmail:email}).exec()
+
+        return data;
+    },
+    motivationalList: async ({}, req) => {
+        if (!req.isAuth) {
+            throw new Error("Unauthorized");
+        }
+        const data = Motivation.find().exec()
         return data;
     }
 
