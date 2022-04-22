@@ -19,9 +19,11 @@ export default function Menu(props) {
     return (<Stack direction="horizontal" className="m-4" gap={3}>
 
         <span className="me-auto"/>
-        <Button href="/courses" variant="outline-secondary"> Home</Button>
-        <Button href="/courses" variant="outline-secondary"> Courses</Button>
+        <Button href="/home" variant="outline-secondary"> Home</Button>
+        <Button href="/patients" variant="outline-secondary"> Courses</Button>
         <Button href="/students" variant="outline-secondary">Students</Button>
+        {/* <Button href="/courses" variant="outline-secondary"> Courses</Button>
+        <Button href="/students" variant="outline-secondary">Students</Button> */}
         {isLogin &&
             < Button href="/students" onClick={(event => {
                 auth.saveToken("")

@@ -26,6 +26,7 @@ export default buildSchema(
     type LoginReturnType{
         token:String
         userId:ID
+        usertype:String
     }
     
    
@@ -38,7 +39,8 @@ export default buildSchema(
   type Motivational{
     title:String,
     description:String,
-    videoURL:String
+    videoURL:String,
+    date:String
   }
   
   
@@ -47,15 +49,33 @@ export default buildSchema(
      userEmail:String,
      heartRate:String,
      bloodPressure:String,
-     bodyTemperature:String
+     bodyTemperature:String,
+     weight:String,
+     date:String,
+     userId:String
    }
    
    type VitalSigns{
      userEmail:String,
      heartRate:String,
      bloodPressure:String,
-     bodyTemperature:String
+     bodyTemperature:String,
+     date:String,
+     userId:String,
+     weight:String,
+     _id:ID
    }
+
+   input EditSignsInput{
+    userEmail:String,
+    heartRate:String,
+    bloodPressure:String,
+    bodyTemperature:String,
+    date:String,
+    userId:String,
+    weight:String,
+    _id:ID
+  }
    
    input userInfoInput{
      userEmail:String,
@@ -71,7 +91,7 @@ export default buildSchema(
        success:Boolean
     }
   
-    type RootMutation{
+    type RootMutation{ 
         registration(userInput:UserInput!):User!
         login(email:String!,password:String!):LoginReturnType!
         updateUser(id:String,input:UserInput!):SuccessReturn
@@ -81,6 +101,7 @@ export default buildSchema(
         createDailyInformation(input:userInfoInput):SuccessReturn
         createDailyMotivationalFeed(title:String,description:String,videoURL:String,date:String):SuccessReturn
         enterVitalInfo(input:VitalSignsInput):SuccessReturn
+        editVitalInfo(input:EditSignsInput):SuccessReturn
     }
     type RootQuery{
      
@@ -91,7 +112,7 @@ export default buildSchema(
         motivationalList:[Motivational]
         userByType(type:String):[User]
         vitalInfoByID(id:String):VitalSigns
-        vitalInfoByUserEmail(email:String):VitalSigns
+        vitalInfoByUserId(userId:String):[VitalSigns]
     }
     
     schema{

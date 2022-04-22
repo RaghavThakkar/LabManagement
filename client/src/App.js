@@ -1,41 +1,137 @@
 import './App.css';
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import {BrowserRouter, Route, Routes, Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet, Link } from 'react-router-dom';
+import { Container, Navbar, Nav, Brand } from 'react-bootstrap'
 
 import "bootstrap/dist/css/bootstrap.css";
-import Login from "./components/Login/login";
-import StudentList from "./components/Student/studentlist";
-import CourseList from "./components/Course/CourseList";
-import CourseAdd from "./components/Course/CourseAdd";
-import CourseUpdate from "./components/Course/CourseUpdate";
+import Login from "./components/Authentication/Login";
+import Register from "./components/Authentication/signup"
 
-import StudentDetails from "./components/Student/StudentDetails";
-import CourseStudent from "./components/Student/CourseStudent";
-import {useAppApolloClient} from "./config/apolloClient";
-import {ApolloProvider} from "@apollo/client";
+import Patient from "./components/Patient/Patient"
+import Nurse from "./components/Nurse/Nurse"
+import PatientList from "./components/Nurse/PatientList";
+import PatientDailyInfo from "./components/Patient/PatientDailyInfo";
+import EmergencyAlert from './components/Patient/EmergencyAlert';
+import DailyMotivationTipNurse from './components/Nurse/DailyMotivationTipNurse';
+import DailyMotivationTipPatient from './components/Patient/DailyMotivationTipPatient';
+import EditDailyInfo from './components/Patient/EditDailyInfo';
+import PatientDailyInfoList from './components/Patient/PatientDailyInfoList';
+
+import { useAppApolloClient } from "./config/apolloClient";
+import { ApolloProvider } from "@apollo/client";
+import { Provider, useSelector } from 'react-redux'
+import createStore from './redux/store'
 
 function App() {
     const apolloClient = useAppApolloClient();
 
     return (
         <ApolloProvider client={apolloClient}>
-            <div className="wrapper">
-                <BrowserRouter>
-                    <Routes>
-                        <Route exact path="/" element={<Login/>}/>
-                        <Route exact path="/login" element={<Login/>}/>
-                        <Route exact path="/students" element={<StudentList/>}/>
-                        <Route exact path="/studentDetail/:id" element={<StudentDetails/>}/>
-                        <Route exact path="/courses" element={<CourseList/>}/>
-                        <Route exact path="/course/add" element={<CourseAdd/>}/>
-                        <Route exact path="/course/update/:id" element={<CourseUpdate/>}/>
-                        <Route exact path="/course/students/:code" element={<CourseStudent/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </div>
+            <Provider store={createStore}>
+                <div className="wrapper">
+                    <Router>
+                        <Routes>
+                            <Route element={<Layout />}>
+                                <Route exact path="/" element={<Register />} />
+                                <Route exact path="/login" element={<Login />} />
+                                <Route exact path="/patients" element={<PatientList />} />
+                                <Route exact path="/patient/:user_id" element={<Patient />} />
+                                <Route exact path="/nurse/:user_id" element={<Nurse />} />
+                                <Route exact path="/patientDailyInfo/:patient_id" element={<PatientDailyInfo />} />
+                                <Route exact path="/patientDailyInfoList/:patient_id" element={<PatientDailyInfoList />} />
+                                <Route exact path="/patientDailyInfo/form/:form_id" element={<EditDailyInfo />} />
+                                <Route exact path="/createDailyMotivationTip" element={<DailyMotivationTipNurse />} />
+                                <Route exact path="/dailyMotivationTipPatient" element={<DailyMotivationTipPatient />} />
+                                <Route exact path="/EmergencyAlert/:patient_id" element={<EmergencyAlert />} />
+                            </Route>
+                        </Routes>
+                    </Router>
+                </div>
+            </Provider>
         </ApolloProvider>
 
+    );
+}
+
+function Layout() {
+    const user = useSelector((state) => state.user.user)
+    if (user.token) {
+        return (
+            <>
+                <Navbar bg="dark" variant="dark">
+                    <Container>
+                        {
+                            user.usertype === 'Patient' ?
+                                (
+                                    <>
+                                    <Navbar.Brand>
+                                        <Link to={`/patient/${user.userId}`}>home</Link>
+                                    </Navbar.Brand>
+                                    <Navbar.Brand>
+                                        <Link to={`/patientDailyInfoList/${user.userId}`}>Vital Info List</Link>
+                                    </Navbar.Brand>
+                                    <Navbar.Brand>
+                                        <Link to={`/dailyMotivationTipPatient`}>Motivational Tips</Link>
+                                    </Navbar.Brand>
+                                    </>
+                                )
+                                :
+                                (
+                                    <>
+                                    <Navbar.Brand>
+                                        <Link to={`/nurse/${user.userId}`}>home</Link>
+                                    </Navbar.Brand>
+                                    <Navbar.Brand>
+                                        <Link to={`/patients`}>Patient List</Link>
+                                    </Navbar.Brand>
+                                    <Navbar.Brand>
+                                        <Link to={`/dailyMotivationTipPatient`}>Motivational Tips</Link>
+                                    </Navbar.Brand>
+                                    </>
+                                )
+
+                        }
+
+                        <Navbar.Brand href="/">log out</Navbar.Brand>
+                        {
+                            user.usertype === 'Patient' ?
+                                <Nav to={`/patient/${user.userId}`} element={<Patient />} ></Nav> :
+                                <Nav to={`/nurse/${user.userId}`} element={<Nurse />} ></Nav>
+                        }
+                        <Nav className="me-auto">
+                        </Nav>
+                    </Container>
+                </Navbar>
+                <Container className='mt-3 col-12'>
+                    {/* <h1>child</h1> */}
+                    <Outlet />
+                </Container>
+
+            </>
+        );
+    }
+    return (
+        <>
+            <Navbar bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Brand>
+                        <Link to="/login">
+                            Login</Link></Navbar.Brand>
+                    <Navbar.Brand>
+                        <Link to="/signup">
+                            Sign up</Link></Navbar.Brand>
+                    <Nav path="/" element={<Register />} />
+                    <Nav className="me-auto">
+                    </Nav>
+                </Container>
+            </Navbar>
+            <Container className='mt-3 col-12'>
+                {/* <h1>child</h1> */}
+                <Outlet />
+            </Container>
+
+        </>
     );
 }
 

@@ -27,6 +27,16 @@ const vitalSignsSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    weight: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    userId:{
+        type: String,
+        required: true,
+        trim: true
     }
 });
 

@@ -1,23 +1,6 @@
 import gql from "graphql-tag";
 
 
-export const StudentsQuery = gql`
- query{
-  students {
-    _id
-    email
-    firstName
-    lastName
-    address
-    city
-    phone
-    program
-  }
-}
-
-`;
-
-
 export const UserList= gql`
 query Users {
   users {
@@ -31,107 +14,81 @@ query Users {
   }
 }`;
 
-export const CourseQuery = gql`
-query{
-  courses {
+export const userById = gql`
+query userById($id: String) {
+  userById(id: $id) {
+    _id,
+    email,
+    firstName,
+    lastName,
+    address,
+    city,
+    phone
+  }
+}
+`;
+
+export const userByType = gql`
+query userByType($type: String) {
+  userByType(type: $type) {
+    _id,
+    email,
+    firstName,
+    lastName,
+    address,
+    city,
+    phone
+  }
+}
+`;
+
+export const vitalInfoList= gql`
+query vitalInfoList {
+  VitalSigns {
+    userEmail,
+    heartRate,
+    bloodPressure,
+    bodyTemperature,
+    weight
+  }
+}`;
+
+export const vitalInfoListByUserId= gql`
+query vitalInfoByUserId($userId:String) {
+  vitalInfoByUserId(userId: $userId) {
+    userId,
+    heartRate,
+    bloodPressure,
+    bodyTemperature,
+    weight,
+    date,
     _id
-    name,
-    code,
-    section,
-    semester
-  }
-}
-`;
-
-export const StudentById = gql`
-query studentById($id: String) {
-  studentById(id: $id) {
-    _id,
-    email,
-    phone,
-    program,
-    firstName,
-    lastName,
-    address,
-     course{
-      name,
-      code,
-      section,
-      semester
-    }
-  }
-}
-`;
-
-export const StudentByCourseCode = gql`
-query studentByCourseCode($code: String) {
-  studentByCourseCode(code: $code) {
-    _id,
-    email,
-    phone,
-    program,
-    firstName,
-    lastName,
-    address,
-     course{
-      name,
-      code,
-      section,
-      semester
-    }
-  }
-}
-`;
-
-
-export const notAddedCourse = gql`
-query notAddedCourse($id: String) {
-      notAddedCourse(id: $id) {
-      student {
-      _id,
-      email,
-      firstName,
-      lastName,
-      address,
-      city,
-      phone,
-      program,
-      course{
-      _id
-          name,
-          code,
-          section,
-          semester
-        }
-     },
-    course {
-    _id,
-      code
-      name,
-      section,
-      semester
-    }
-     
-     }
-}
-`;
-
-
-export const  DeleteCourseById=gql`
-mutation deleteCourseById($id: String) {
-    deleteCourseById(id: $id) {
-    success
   }
 }`;
 
-
-export const  DeleteStudentId=gql`
-mutation deleteStudentById($id: String) {
-    deleteStudentById(id: $id) {
-    success
+export const vitalInfoListByFormId= gql`
+query vitalInfoByID($id:String) {
+  vitalInfoByID(id: $id) {
+    userId,
+    heartRate,
+    bloodPressure,
+    bodyTemperature,
+    weight,
+    _id,
+    userEmail,
+    date
   }
 }`;
 
+export const motivationalList= gql`
+query motivationalList {
+  motivationalList{
+    title,
+    description,
+    videoURL
+  }
+}`;
 
-
-
+// export const patientDailyInfo = gql`
+// query 
+// `

@@ -13,7 +13,7 @@ const motivationSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    videoURl: {
+    videoURL: {
         type: String,
         required: true,
         trim: true

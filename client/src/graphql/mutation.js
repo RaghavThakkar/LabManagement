@@ -6,73 +6,61 @@ export const LoginMutation = gql`
     login(email: $email, password: $password ) {
       token
       userId
+      usertype
     }
   }
 `;
 
-
-
-
-export const CreateCourse = gql`
- mutation createCourse($code:String!,$name:String!,$section:String!,$semester:String!){
-    createCourse(code:$code,name:$name,section:$section,semester:$semester){
-     _id
-  }
-}
-`;
-
-export const UpdateCourse = gql`
- mutation updateCourse($id:String,$code:String,$name:String,$section:String,$semester:String){
-    updateCourse(id:$id,code:$code,name:$name,section:$section,semester:$semester){
-     success
-  }
-}
-`;
-
-export const CourseByIDQuery=gql`
-mutation courseById($id:String) {
-  courseById(id:$id){
-    _id
-    name,
-    code,
-    section,
-    semester
-  }
+export const registration = gql`
+  mutation registration($email: String!, $password: String!, $firstName: String!, $lastName: String!, $address: String!, $city: String!, $phone: String!, $usertype:String!) {
+    registration(userInput:{email: $email, password: $password,firstName:$firstName,lastName:$lastName, address:$address,city:$city,phone:$phone,usertype:$usertype}) {
+      _id,
+      email,
+      firstName,
+      lastName,
+      address,
+      city,
+      phone,
+      usertype
+    }
   }
 `;
 
-export const AddCourse=gql`
-mutation add($id:String) {
-  courseById(id:$id){
-    _id
-    name,
-    code,
-    section,
-    semester
-  }
+// export const CreateDailyInformation = gql`
+//   mutation createDailyInformation($userId: String!, $pluseRate:String!,$weight:String, $bloodPressure:String!,$temperature:String,$respiratoryrate:String, $date:String){
+//     createDailyInformation(userId: $userId,pluseRate: $pluseRate,weight:$weight, bloodPressure:$bloodPressure,temperature:$temperature,respiratoryrate:$respiratoryrate,date:$date){
+//       success
+//     }
+//   }
+// `;
+
+export const CreateEmergencyAlert = gql`
+  mutation createEmergencyAlert($userEmail: String!, $message:String!,$email:String){
+    createEmergencyAlert(input:{userEmail: $userEmail,message: $message,email:$email}){
+      success
+    }
   }
 `;
 
-
-export const DeleteCourseByIDQuery=gql`
-query deleteCourseById($id:String) {
-  deleteCourseById(id:$id){
-   success
-  }
-  }
-`;
-
-export const DeleteStudentByIDQuery=gql`
-query deleteStudentById($id:String) {
-  deleteStudentById(id:$id){
-   success
-  }
+export const CreateDailyMotivationalFeed = gql`
+  mutation createDailyMotivationalFeed($title:String,$description:String,$videoURL:String,$date:String){
+    createDailyMotivationalFeed(title: $title,description: $description,videoURL:$videoURL,date:$date){
+      success
+    }
   }
 `;
-
-export const AddOrRemoveCourse=gql`
-mutation AddCourse($id: String, $code: String, $type: String) {
-   addCourse(id: $id, code: $code, type: $type) {
+export const EnterVitalInfo = gql`
+mutation enterVitalInfo($userEmail:String,$heartRate:String,$weight:String,$bloodPressure:String,$bodyTemperature:String,$date:String,$userId:String){
+  enterVitalInfo(input:{userEmail:$userEmail,heartRate:$heartRate,weight:$weight,bloodPressure:$bloodPressure,bodyTemperature:$bodyTemperature,date:$date,userId:$userId}){
     success
   }
-}`;
+}
+`;
+
+export const editVitalInfo = gql`
+mutation editVitalInfo($_id:ID,$userEmail:String,$heartRate:String,$weight:String,$bloodPressure:String,$bodyTemperature:String,$date:String,$userId:String){
+  editVitalInfo(input:{_id:$_id,userEmail:$userEmail,heartRate:$heartRate,weight:$weight,bloodPressure:$bloodPressure,bodyTemperature:$bodyTemperature,date:$date,userId:$userId}){
+    success
+  }
+}
+`;

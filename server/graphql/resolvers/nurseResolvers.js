@@ -66,7 +66,8 @@ export default {
             });
             return {
                 token,
-                userId: user._id
+                userId: user._id,
+                usertype:user.usertype
             }
         } catch (error) {
             return error
@@ -141,11 +142,12 @@ export default {
             return {success: false}
         }
     },
-    createDailyMotivationalFeed: async ({title,description,videoURL}) => {
+    createDailyMotivationalFeed: async ({title,description,videoURL,date}) => {
         const input = new Motivation();
         input.title=title
         input.description=description
-        input.videoURl=videoURL
+        input.videoURL=videoURL
+        input.date = date
         try {
             const response = await input.save();
             return {success: true}
@@ -162,6 +164,31 @@ export default {
         } catch (e) {
             return {success: false}
         }
+    },
+    editVitalInfo:async (args) => {
+        const formId = args.input._id;
+        try{
+            const form = await VitalSigns.findOne({_id:formId})
+           
+            form.userEmail = args.input.userEmail
+            form.hearRate = args.input.hearRate
+            form.bloodPressure = args.input.bloodPressure
+            form.bodyTemperature = args.input.bodyTemperature
+            form.weight = args.input.weight
+            try {
+                const response = await form.save();
+                return {success: true}
+            } catch (e) {
+                console.log(e)
+                return {success: false}
+            }
+        }
+        catch{
+            return Error("not found")
+        }
+      
+
+
     },
     vitalInfoList: async ({}, req) => {
         if (!req.isAuth) {
@@ -185,19 +212,19 @@ export default {
 
         return data;
     },
-    vitalInfoByUserEmail: async ({email}, req) => {
+    vitalInfoByUserId: async ({userId}, req) => {
         if (!req.isAuth) {
 
             throw new Error("Unauthorized");
         }
-        const data = VitalSigns.findOne({userEmail:email}).exec()
+        const data = VitalSigns.find({userId:userId}).exec()
 
         return data;
     },
     motivationalList: async ({}, req) => {
-        if (!req.isAuth) {
-            throw new Error("Unauthorized");
-        }
+        // if (!req.isAuth) {
+        //     throw new Error("Unauthorized");
+        // }
         const data = Motivation.find().exec()
         return data;
     }
