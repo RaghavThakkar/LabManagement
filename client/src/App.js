@@ -119,7 +119,7 @@ function Layout() {
                         <Link to="/login">
                             Login</Link></Navbar.Brand>
                     <Navbar.Brand>
-                        <Link to="/signup">
+                        <Link to="/">
                             Sign up</Link></Navbar.Brand>
                     <Nav path="/" element={<Register />} />
                     <Nav className="me-auto">
