@@ -62,8 +62,6 @@ export default buildSchema(
      bloodPressure:String,
      bodyTemperature:String,
      date:String,
-     userId:String,
-     weight:String,
      _id:ID
    }
 

@@ -2,11 +2,6 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const vitalSignsSchema = mongoose.Schema({
-    userId: {
-        type: String,
-        required: true,
-        trim: true
-    },
     userEmail: {
         type: String,
         required: true,
@@ -33,11 +28,6 @@ const vitalSignsSchema = mongoose.Schema({
         trim: true
     },
     date: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    weight: {
         type: String,
         required: true,
         trim: true
