@@ -46,16 +46,17 @@ export default buildSchema(
   
   
   input VitalSignsInput{
+     userId:String,
      userEmail:String,
      heartRate:String,
      bloodPressure:String,
      bodyTemperature:String,
      weight:String,
-     date:String,
-     userId:String
    }
    
    type VitalSigns{
+     weight:String,
+     userId:String,
      userEmail:String,
      heartRate:String,
      bloodPressure:String,
@@ -78,6 +79,7 @@ export default buildSchema(
   }
    
    input userInfoInput{
+    
      userEmail:String,
      pluseRate:String,
      weight:String,
