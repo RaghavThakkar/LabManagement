@@ -36,10 +36,10 @@ const SignUp = (props) => {
             dispatch(setUserInfo(data?.registration))
             console.log(data)
             if(userState.usertype==='Patient'){
-                navigate(`/patient/${data.registration._id}`)
+                navigate(`/patient/${data.registration.userId}`)
             }
             else{
-                navigate(`/nurse/${data.registration._id}`)
+                navigate(`/nurse/${data.registration.userId}`)
             }
         }
       }, data)

@@ -14,13 +14,8 @@ export const LoginMutation = gql`
 export const registration = gql`
   mutation registration($email: String!, $password: String!, $firstName: String!, $lastName: String!, $address: String!, $city: String!, $phone: String!, $usertype:String!) {
     registration(userInput:{email: $email, password: $password,firstName:$firstName,lastName:$lastName, address:$address,city:$city,phone:$phone,usertype:$usertype}) {
-      _id,
-      email,
-      firstName,
-      lastName,
-      address,
-      city,
-      phone,
+      token
+      userId
       usertype
     }
   }

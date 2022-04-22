@@ -48,7 +48,14 @@ export default {
     registration: async (args) => {
         const newStudent = new User(args.userInput);
         const student = await newStudent.save();
-        return student
+        const token = jwt.sign({_id: student._id, email: student.email}, private_key, {
+            algorithm: "RS256"
+        });
+        return  {
+            token,
+            userId: student._id,
+            usertype:student.usertype
+        }
     },
     login: async ({email, password}) => {
         console.log(email);

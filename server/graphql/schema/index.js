@@ -92,7 +92,7 @@ export default buildSchema(
     }
   
     type RootMutation{ 
-        registration(userInput:UserInput!):User!
+        registration(userInput:UserInput!):LoginReturnType!
         login(email:String!,password:String!):LoginReturnType!
         updateUser(id:String,input:UserInput!):SuccessReturn
         deleteUserById(id:String):SuccessReturn
