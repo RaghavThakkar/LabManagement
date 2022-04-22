@@ -22,6 +22,7 @@ import { useAppApolloClient } from "./config/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import { Provider, useSelector } from 'react-redux'
 import createStore from './redux/store'
+import DiabetesPredict from "./components/Patient/DiabetesPredict";
 
 function App() {
     const apolloClient = useAppApolloClient();
@@ -43,6 +44,7 @@ function App() {
                                 <Route exact path="/patientDailyInfo/form/:form_id" element={<EditDailyInfo />} />
                                 <Route exact path="/createDailyMotivationTip" element={<DailyMotivationTipNurse />} />
                                 <Route exact path="/dailyMotivationTipPatient" element={<DailyMotivationTipPatient />} />
+                                <Route exact path="/dp" element={<DiabetesPredict />} />
                                 <Route exact path="/EmergencyAlert/:patient_id" element={<EmergencyAlert />} />
                             </Route>
                         </Routes>
