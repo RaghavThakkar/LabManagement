@@ -131,8 +131,8 @@ const SignUp = (props) => {
                 <label class="form-check-label margin-bottom" for="inlineRadio2">Nurse</label>
             </div> */}
                     <ButtonGroup>
-                        <ToggleButton variant="outline-success" id='tb-patient' type='radio' name='radio' value='Patient' onChange={(e) => setRadioValue(e.currentTarget.value)}>Patient</ToggleButton>
-                        <ToggleButton variant="outline-success" id='tb-nurse' type='radio' name='radio' value='Nurse' onChange={(e) => setRadioValue(e.currentTarget.value)}>Nurse</ToggleButton>
+                        <ToggleButton variant={userState.usertype==="Patient"?"success":"outline-success"} id='tb-patient' type='radio' name='radio' value='Patient' onChange={(e) => setRadioValue(e.currentTarget.value)}>Patient</ToggleButton>
+                        <ToggleButton variant={userState.usertype==="Nurse"?"success":"outline-success"} id='tb-nurse' type='radio' name='radio' value='Nurse' onChange={(e) => setRadioValue(e.currentTarget.value)}>Nurse</ToggleButton>
                     </ButtonGroup>
                     <div className='mt-2'>
                         <Button variant="primary" type="submit">
