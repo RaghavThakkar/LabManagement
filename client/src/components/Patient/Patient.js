@@ -58,6 +58,10 @@ const Patient = () => {
             <div className="w-75 m-auto mt-3">
             <NavLink className='btn btn-danger w-100' to={`/EmergencyAlert/${user_id}`}> Send Emergency Alert</NavLink>
             </div>
+
+                <div className="w-75 m-auto mt-3">
+                    <NavLink className='btn  w-100' to={`/dl/${user_id}`}> Predict Diabetes</NavLink>
+                </div>
             </Card.Body>
         </Card>
         </>
